@@ -1,16 +1,21 @@
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-simple-mocha');
 
   grunt.initConfig({
     jshint: {
-      all: ["lib/*.js"]
+      all: ['lib/*.js']
     },
-
-    simplemocha: {
-      src: ['test/**/*.js']
+    jscs: {
+      src: '*.js',
+      options: {
+          config: '.jscsrc',
+          requireCurlyBraces: [ 'if' ]
+      }
     }
   });
-  grunt.registerTask('test', ['jshint', 'simplemocha']);
+
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jscs');
+
+  grunt.registerTask('test', ['jshint', 'jscs']);
   grunt.registerTask('default', ['test']);
-}
+};
